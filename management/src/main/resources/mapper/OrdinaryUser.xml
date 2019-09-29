@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dangle.Dao.OrdinaryUserDao">
+    <select id="selectedAlluser" parameterType="com.dangle.pojo.OrdinaryUser" resultType="com.dangle.pojo.OrdinaryUser">
+        SELECT
+        `id`,
+        `name`,
+        `phone`,
+        `sex`,
+        `address`,
+        `status`
+        FROM `management`.`ordinaryuser`
+        <where>
+            <if test="name!=null and name.length() >0">
+                name like '%${name}%'
+            </if>
+            <if test="phone !=null and phone.length() >0">
+                and phone like '%${phone}%'
+            </if>
+        </where>
+
+
+    </select>
+    <update id="prohibitUser">
+            UPDATE `management`.`ordinaryuser`
+                SET
+                  `status` = '0'
+                  where `id` =#{id};
+    </update>
+    <update id="actiivationUser">
+            UPDATE `management`.`ordinaryuser`
+                SET
+                  `status` = '1'
+                  where `id` =#{id};
+    </update>
+
+
+</mapper>

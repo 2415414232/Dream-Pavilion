@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>员工管理</title>
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../plugins/adminLTE/css/AdminLTE.css">
+    <link rel="stylesheet" href="../plugins/adminLTE/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+	<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../plugins/angularjs/angular.min.js">  </script>
+	<!-- 分页组件开始 -->
+	<script src="../plugins/angularjs/pagination.js"></script>
+	<link rel="stylesheet" href="../plugins/angularjs/pagination.css">
+	<!-- 分页组件结束 -->
+	<script type="text/javascript" src="../js/base_pagination.js"></script>
+	<script type="text/javascript" src="../js/controller/staffController.js">  </script>
+
+    
+</head>
+<body class="hold-transition skin-red sidebar-mini" ng-app="management" ng-controller="staffController">
+  <!-- .box-body -->
+                    <div class="box-header with-border">
+                        <h3 class="box-title">员工管理</h3>
+                    </div>
+
+                    <div class="box-body">
+
+                        <!-- 数据表格 -->
+                        <div class="table-box">
+
+                            <!--工具栏-->
+                            <div class="pull-left">
+                                <div class="form-group form-inline">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-default glyphicon glyphicon-plus" title="新建" data-toggle="modal" data-target="#addModal" ng-click="entity={}" ><i class="fa fa-file-o"></i> 添加</button>
+                                        <button type="button" class="btn btn-default glyphicon glyphicon-trash" title="删除" ><i class="fa fa-trash-o"></i> 删除</button>
+                                        <button type="button" class="btn btn-default glyphicon glyphicon-repeat" title="刷新" onclick="window.location.reload();"><i class="fa fa-refresh"></i> 刷新</button>
+                                    </div>
+                                </div>
+                            </div>
+							<div class="box-tools pull-right">
+								<div class="has-feedback">
+									员工名称：<input ng-model="condition.name"  >
+									电话号码： <input ng-model="condition.telephone"  >
+									<button class="btn btn-default glyphicon glyphicon-search" ng-click="reloadList()" >查询</button>
+								</div>
+							</div>
+                            <!--工具栏/-->
+
+			                  <!--数据列表-->
+			                  <table id="dataList" class="table table-bordered table-striped table-hover dataTable">
+			                      <thead>
+			                          <tr>
+			                              <th class="" style="padding-right:0px">
+			                                  <input id="selall" type="checkbox" class="icheckbox_square-blue">
+			                              </th> 
+										  <th class="sorting_asc">员工ID</th>
+									      <th class="sorting">员工姓名</th>
+									      <th class="sorting">电话</th>
+									      <th class="sorting">入职时间</th>
+									      <th class="sorting">状态</th>
+					                      <th class="text-center">操作</th>
+			                          </tr>
+			                      </thead>
+			                      <tbody>
+			                          <tr ng-repeat="domain in entitys">
+			                              <td><input  type="checkbox" ></td>			                              
+				                          <td>{{domain.id}}</td>
+									      <td>{{domain.name}}</td>
+		                                  <td>{{domain.telephone}}</td>
+		                                  <td>{{domain.entrytime}}</td>
+		                                  <td>{{domain.status ==1? '在职':'离职'}}</td>
+		                                  <td class="text-center">
+		                                 	  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal" ng-click="editStaff(domain.id)" >修改</button>
+		                                 	  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#affair" ng-click="findId(domain.id)" >添加事务</button>
+		                                 	  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#detail" ng-click="findDetails(domain.id)"  >详情</button>
+		                                  </td>
+			                          </tr>
+
+			                      </tbody>
+			                  </table>
+			                  <!--数据列表/-->
+
+						</div>
+						<tm-pagination conf="paginationConf"></tm-pagination>
+						<!-- 数据表格 /-->
+                        
+                        
+                        
+                        
+                     </div>
+                    <!-- /.box-body -->
+         
+<!-- 添加窗口 -->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" >
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+			<h3 id="myModal">员工添加</h3>
+		</div>
+		<div class="modal-body">		
+			<table class="table table-bordered table-striped"  width="800px">
+		      	<tr>
+		      		<td>员工姓名</td>
+		      		<td><input  class="form-control" placeholder="员工姓名" ng-model="entity.name" >  </td>
+		      	</tr>		      	
+		      	<tr>
+		      		<td>电话</td>
+		      		<td><input  class="form-control" placeholder="电话" ng-model="entity.telephone">  </td>
+		      	</tr>		      	
+		      	<tr>
+		      		<td>入职时间</td>
+		      		<td><input  type="date" class="form-control" placeholder="入职时间" ng-model="entity.entrytime">  </td>
+		      	</tr>
+		      	<tr>
+		      		<td>住址</td>
+		      		<td><input  class="form-control" placeholder="住址" ng-model="entity.familyaddress">  </td>
+		      	</tr>
+		      	<tr>
+		      		<td>身份证号</td>
+		      		<td><input  class="form-control" placeholder="身份证号" ng-model="entity.idNumber">  </td>
+		      	</tr>
+			 </table>
+		</div>
+		<div class="modal-footer">						
+			<button class="btn btn-success" data-dismiss="modal" aria-hidden="true" ng-click="saveStaff()">保存</button>
+			<button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
+		</div>
+	  </div>
+	</div>
+</div>
+
+<!--编辑窗口-->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" >
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 id="myModalLab">员工编辑</h3>
+		</div>
+		<div class="modal-body">
+			<table class="table table-bordered table-striped"  width="800px">
+		      	<tr>
+		      		<td>员工姓名</td>
+		      		<td><input  class="form-control" placeholder="员工姓名" ng-model="staff.name">  </td>
+		      	</tr>
+		      	<tr>
+		      		<td>电话</td>
+		      		<td><input  class="form-control" placeholder="电话" ng-model="staff.telephone">  </td>
+		      	</tr>
+		      	<tr>
+		      		<td>入职时间</td>
+		      		<td><input  type="date" class="form-control" placeholder="入职时间"  ng-model="staff.entrytime">  </td>
+		      	</tr>
+		      	<tr>
+		      		<td>住址</td>
+		      		<td><input  class="form-control" placeholder="住址" ng-model="staff.familyaddress">  </td>
+		      	</tr>
+		      	<tr>
+		      		<td>身份证号</td>
+		      		<td><input  class="form-control" placeholder="身份证号" ng-model="staff.idNumber">  </td>
+		      	</tr>
+		      	<tr>
+		      		<td>状态</td>
+		      		<td>
+                        <input  type="radio" ng-model="staff.status" name="rr" ng-value="1">在职
+                        <input type="radio" ng-model="staff.status" name="rr" ng-value="0">离职
+                    </td>
+		      	</tr>
+			 </table>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-success" data-dismiss="modal" aria-hidden="true" ng-click="addStaff()">保存</button>
+			<button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
+		</div>
+	  </div>
+	</div>
+</div>
+
+
+
+  <!-- 商家详情 -->
+  <div class="modal fade" id="detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-lg" >
+		  <div class="modal-content">
+			  <div class="modal-header">
+				  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				  <h3 id="">商家详情</h3>
+			  </div>
+			  <div class="modal-body">
+
+				  <ul class="nav nav-tabs">
+					  <li class="active"><a href="#home" data-toggle="tab">基本信息</a></li>
+					  <li><a href="#thing" data-toggle="tab">事务</a></li>
+
+				  </ul>
+
+				  <!-- 选项卡开始 -->
+				  <div id="myTabContent" class="tab-content">
+					  <div class="tab-pane active in" id="home">
+						  <br>
+						  <table class="table table-bordered table-striped"  width="800px">
+							  <tr>
+								  <td>姓名</td>
+								  <td>{{staff.name}}</td>
+							  </tr>
+							  <tr>
+								  <td>电话</td>
+								  <td>{{staff.telephone}}</td>
+							  </tr>
+							  <tr>
+								  <td>入职时间</td>
+								  <td>{{staff.entrytime}}</td>
+							  </tr>
+							  <tr>
+								  <td>详细地址</td>
+								  <td>{{staff.familyaddress}}</td>
+							  </tr>
+							  <tr>
+								  <td>身份证号</td>
+								  <td>{{staff.idNumber}}</td>
+							  </tr>
+							  <tr>
+								  <td>状态</td>
+								  <td>{{staff.status==1?'在职':'离职'}}</td>
+							  </tr>
+						  </table>
+					  </div>
+					  <div class="tab-pane fade" id="thing">
+						  <br>
+						  <table class="table table-bordered table-striped" >
+							  <tr ng-repeat="lists in staff.list">
+								  <td>时间</td>
+								  <td>{{lists.time}}</td>
+								  <td>事情</td>
+								  <td>{{lists.thing}}</td>
+							  </tr>
+
+						  </table>
+					  </div>
+				  <!-- 选项卡结束 -->
+			  </div>
+			  <div class="modal-footer">
+
+				  <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
+			  </div>
+		  </div>
+	  </div>
+  </div>
+  </div>
+
+
+	  <div class="modal fade" id="affair" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog" >
+			  <div class="modal-content">
+				  <div class="modal-header">
+					  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					  <h3 id="affair">事务</h3>
+				  </div>
+				  <div class="modal-body">
+					  <table class="table table-bordered table-striped"  width="800px">
+						  <tr>
+							  <td>时间</td>
+							  <td><input  class="form-control" placeholder="时间" type="date" ng-model="affair.time" >  </td>
+						  </tr>
+						  <tr>
+							  <td>事件</td>
+							  <td><input  class="form-control" placeholder="事件" ng-model="affair.thing" >  </td>
+						  </tr>
+
+
+
+					  </table>
+				  </div>
+				  <div class="modal-footer">
+					  <button class="btn btn-success" data-dismiss="modal" aria-hidden="true" ng-click="addAffair()">确定添加</button>
+					  <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
+				  </div>
+			  </div>
+		  </div>
+	  </div>
+
+</body>
+</html>

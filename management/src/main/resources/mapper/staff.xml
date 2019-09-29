@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dangle.Dao.staffDao">
+
+
+    <!--员工和事物的对应关系 父子嵌套-->
+    <resultMap id="staffAndaffair" type="com.dangle.pojo.Staff">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="telephone" column="telephone"/>
+        <result property="entrytime" column="entrytime"/>
+        <result property="familyaddress" column="familyaddress"/>
+        <result property="status" column="status"/>
+        <result property="idNumber" column="id_number"/>
+        <!--<collection property="list"  ofType="com.dangle.pojo.Affair" select="listaffair" column="id" >
+
+        </collection>-->
+        <collection property="list" ofType="com.dangle.pojo.Affair">
+            <result property="time" column="time"/>
+            <result property="thing" column="thing"/>
+        </collection>
+    </resultMap>
+    <resultMap id="affair" type="com.dangle.pojo.Affair">
+        <result property="time" column="time"/>
+        <result property="thing" column="thing"/>
+    </resultMap>
+        <select id="findAllstaff" parameterType="com.dangle.pojo.Affair" resultType="com.dangle.pojo.Staff">
+                    SELECT
+                  s.`id`,
+                  s.`name`,
+                  s.`telephone`,
+                  s.`entrytime`,
+                  s.`familyaddress`,
+                  s.`status`,
+                  s.`id_number`
+                FROM `seller` s
+                <where>
+                <if test="name !=null and name.length()>0">
+                    s.`name` like '%${name}%'
+                </if>
+                    <if test="telephone !=null and telephone.length() >0">
+                        and telephone like '%${telephone}%'
+                    </if>
+                </where>
+
+
+        </select>
+    <select id="listaffair" resultMap="affair">
+        select
+        a.`time`,
+          a.`thing`
+        from  `affair` a where a.`sellerid`=#{id}
+    </select>
+
+    <!--详情页-->
+    <select id="findDetails" resultMap="staffAndaffair">
+     SELECT
+                  s.`id`,
+                  s.`name`,
+                  s.`telephone`,
+                  s.`entrytime`,
+                  s.`familyaddress`,
+                  s.`status`,
+                  s.`id_number`,
+                  a.`time`,
+                  a.`thing`
+                FROM `seller` s LEFT JOIN `affair` a ON a.`sellerid`=s.`id` WHERE s.`id`=#{id}
+    </select>
+    <!--编辑查询-->
+    <select id="editStaff" resultType="com.dangle.pojo.Staff">
+                   SELECT
+              `id`,
+              `name`,
+              `telephone`,
+              `entrytime`,
+              `familyaddress`,
+              `status`,
+              `id_number`
+            FROM `management`.`seller` WHERE `id`=#{id}
+    </select>
+    <!--保存员工-->
+    <update id="addStaff" parameterType="com.dangle.pojo.Staff">
+         UPDATE `management`.`seller`
+            SET
+              `name` = #{name},
+              `telephone` = #{telephone},
+              `entrytime` =  #{entrytime},
+              `familyaddress` = #{familyaddress},
+              `status` = #{status},
+              `id_number` = #{idNumber}
+            WHERE `id` = #{id};
+    </update>
+    <!--插入员工-->
+    <insert id="saveStaff" parameterType="com.dangle.pojo.Staff">
+
+                    INSERT INTO `management`.`seller`
+                        (
+                         `name`,
+                         `telephone`,
+                         `entrytime`,
+                         `familyaddress`,
+                         `status`,
+                         `id_number`)
+            VALUES (
+                    #{name},
+                    #{telephone},
+                    #{entrytime},
+                    #{familyaddress},
+                    #{status},
+                    #{idNumber} );
+    </insert>
+
+    <insert id="addAffair" parameterType="com.dangle.pojo.Affair">
+                INSERT INTO `management`.`affair`
+                            (
+                             `time`,
+                             `thing`,
+                             `sellerid`)
+                VALUES (
+                        #{time},
+                       #{thing} ,
+                        #{sellerid});
+
+
+    </insert>
+
+
+</mapper>
