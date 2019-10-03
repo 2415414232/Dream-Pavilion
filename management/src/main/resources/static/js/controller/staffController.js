@@ -116,4 +116,13 @@ app.controller('staffController',function ($scope,$http) {
 
         }
 
+
+    $scope.findService=function () {
+        $http.get('../consumer/findService').success(
+            function (response) {
+                $scope.allservice=response;
+            }
+        )
+    }
+
 })

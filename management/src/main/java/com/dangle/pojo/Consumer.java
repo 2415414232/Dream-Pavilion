@@ -29,4 +29,5 @@ public class Consumer implements Serializable {
     private String conservice;
     private String conaccount;
     private String constatus;
+    private  String endtime;
 }

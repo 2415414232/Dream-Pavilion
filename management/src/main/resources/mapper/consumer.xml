@@ -11,15 +11,78 @@
                   a.`servicename` as conservice,
                   c.`conaccount`,
                   c.`consex`,
-                  c.`constatus`
+                  c.`constatus`,
+                  c.`endtime`
                 FROM `consumer` c LEFT JOIN `allservice` a ON c.`conservice`=a.`serviceid`
                 <where>
-                    <if test="conname!=null and">
-
+                    <if test="conname!=null and conname.length()>0">
+                              c.`conname` like '%${conname}%'
+                    </if>
+                    <if test="conphone !=null and conphone.length()>0">
+                        AND  c.`conphone` like '%${conphone}%'
+                    </if>
+                    <if test="constatus !=null and constatus.length()>0">
+                        and  c.`constatus`=#{constatus}
                     </if>
                 </where>
 
     </select>
 
+    <select id="findService" resultType="java.util.Map">
+                    SELECT
+              `serviceid`,
+              `servicename`
+            FROM `management`.`allservice`
+    </select>
+    <select id="findOne" resultType="com.dangle.pojo.Consumer">
+                    SELECT
+                `id`,
+              `conname`,
+              `conphone`,
+              `contime`,
+              `conservice`,
+              `conaccount`,
+              `consex`,
+              `constatus`,
+              `endtime`
+            FROM `management`.`consumer` where `id`=#{id}
+    </select>
+
+    <update id="editConsumer">
+         UPDATE `management`.`consumer`
+                    SET
+                      `conname` = #{conname},
+                      `conphone` = #{conphone},
+                      `contime` = #{contime},
+                      `conservice` = #{conservice},
+                      `conaccount` = #{conaccount},
+                      `consex` = #{consex},
+                      `constatus` = #{constatus},
+                      `endtime` = #{endtime}
+                    WHERE `id` = #{id};
+    </update>
+
+    <insert id="saveConsumer" parameterType="com.dangle.pojo.Consumer" >
+
+                            INSERT INTO `management`.`consumer`
+                        (
+                         `conname`,
+                         `conphone`,
+                         `contime`,
+                         `conservice`,
+                         `conaccount`,
+                         `consex`,
+                         `constatus`
+                         )
+            VALUES (
+                    #{conname},
+                    #{conphone},
+                    #{contime},
+                    #{conservice},
+                    #{conaccount},
+                    #{consex},
+                    #{constatus});
+
+    </insert>
 
 </mapper>

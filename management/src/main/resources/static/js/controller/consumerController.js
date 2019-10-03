@@ -2,6 +2,7 @@ app.controller('consumerController',function ($scope,$http) {
     $scope.condition={};
     $scope.loadDataFirst = 1;
     //分页控件配置
+    $scope.saveconsumer={};
     $scope.paginationConf = {
         currentPage: 1,
         totalItems: 10,
@@ -38,9 +39,42 @@ app.controller('consumerController',function ($scope,$http) {
         $http.post('../consumer/findAll/'+page+'/'+size,$scope.condition).success(
             function (response) {
                 $scope.entitys=response.list;
-                $scope.entitys.ss="asdsadsadsa";
                 $scope.paginationConf.totalItems=response.nums;
 
+            }
+        )
+    }
+        //查找
+    $scope.findOne=function (id) {
+        $http.get('../consumer/findOne/'+id).success(
+            function (response) {
+                $scope.findone=response;
+                $scope.findone.contime=$scope.transform(response.contime);
+            }
+        )
+    }
+
+    $scope.findService=function () {
+        $http.get('../consumer/findService').success(
+            function (response) {
+                $scope.allservice=response;
+            }
+        )
+    }
+    $scope.editConsumer=function () {
+        $http.post('../consumer/editConsumer',$scope.findone).success(
+            function (response) {
+                $scope.reloadList();
+                alert(response.map.msg);
+            }
+        )
+    }
+
+    $scope.saveConsumer=function () {
+        $http.post('../consumer/saveConsumer',$scope.saveconsumer).success(
+            function (response) {
+                $scope.reloadList();
+                alert(response.map.msg);
             }
         )
     }

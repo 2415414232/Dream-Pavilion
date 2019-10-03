@@ -9,6 +9,12 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLOutput;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
 /**
  * @author by 党桢乐 on 2019/9/30
  */
@@ -24,5 +30,30 @@ public class consumerServiceImpl  implements consumerService {
         pageEntity<Consumer> entity=new pageEntity<>();
         entity.setNums(pageinfo.getTotal()).setTotalpages(pageinfo.getPages()).setList(pageinfo.getResult());
         return entity;
+    }
+
+    @Override
+    public List<Map> findService() {
+        return consumerdao.findService();
+    }
+
+    @Override
+    public Consumer findOne(Long id) {
+        return consumerdao.findOne(id);
+    }
+
+    @Override
+    public void editConsumer(Consumer consumer) {
+        if(consumer.getConstatus().equalsIgnoreCase("1") && consumer.getConstatus().length()>0){
+            SimpleDateFormat format=new SimpleDateFormat("yyyy/MM/dd");
+                consumer.setEndtime(format.format(new Date()));
+    }
+        consumerdao.editConsumer(consumer);
+    }
+
+    @Override
+    public void saveConsumer(Consumer consumer) {
+        consumer.setConstatus("0");
+        consumerdao.saveConsumer(consumer);
     }
 }

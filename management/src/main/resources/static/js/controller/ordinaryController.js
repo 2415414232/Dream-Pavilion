@@ -46,13 +46,13 @@ app.controller('ordinaryController',function ($scope,$http) {
         )
     }
     $scope.actiivation=function (id) {
-        $http.get('../../ordinary/actiivation/'+id).success(
+        $http.get('../../ordinary/actiivation/' + id).success(
             function (response) {
                 $scope.reloadList();
                 alert(response.map.msg);
                 //$scope.message=response;
             }
         )
-    };
+    }
 
 })
