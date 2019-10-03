@@ -71,5 +71,22 @@ public class staffController {
 
         }
     }
+    /*删除*/
+    @RequestMapping("/deleteStaff")
+            public Result deleteStaff(@RequestBody Long[] ids){
+                try {
+                    if(ids.length<0 || ids==null){
+                        return Result.fail().addmessage("msg","删除失败没有选择员工！");
+                    }else{
+
+                        staffservice.deleteStaff(ids);
+                    }
+                    return Result.success().addmessage("msg","删除成功");
+                }catch (Exception e){
+                    e.printStackTrace();
+                    return Result.fail().addmessage("msg","删除失败");
+
+        }
+    }
 
 }

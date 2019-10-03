@@ -37,7 +37,7 @@
                                 <div class="form-group form-inline">
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-default glyphicon glyphicon-plus" title="新建" data-toggle="modal" data-target="#addModal" ng-click="entity={}" ><i class="fa fa-file-o"></i> 添加</button>
-                                        <button type="button" class="btn btn-default glyphicon glyphicon-trash" title="删除" ><i class="fa fa-trash-o"></i> 删除</button>
+                                        <button type="button" class="btn btn-default glyphicon glyphicon-trash" title="删除"  ng-click="deleteStaff()"><i class="fa fa-trash-o"></i> 删除</button>
                                         <button type="button" class="btn btn-default glyphicon glyphicon-repeat" title="刷新" onclick="window.location.reload();"><i class="fa fa-refresh"></i> 刷新</button>
                                     </div>
                                 </div>
@@ -68,7 +68,7 @@
 			                      </thead>
 			                      <tbody>
 			                          <tr ng-repeat="domain in entitys">
-			                              <td><input  type="checkbox" ></td>			                              
+			                              <td><input  type="checkbox" ng-click="selected($event,domain.id)"></td>
 				                          <td>{{domain.id}}</td>
 									      <td>{{domain.name}}</td>
 		                                  <td>{{domain.telephone}}</td>
@@ -88,10 +88,6 @@
 						</div>
 						<tm-pagination conf="paginationConf"></tm-pagination>
 						<!-- 数据表格 /-->
-                        
-                        
-                        
-                        
                      </div>
                     <!-- /.box-body -->
          

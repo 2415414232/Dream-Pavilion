@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.concurrent.Executors;
 
 /**
  * @author by 党桢乐 on 2019/9/27
@@ -58,5 +59,14 @@ public class staffServiceImpl implements staffService {
     @Override
     public void addAffair(Affair affair) {
         staffdao.addAffair(affair);
+    }
+
+    @Override
+    public void deleteStaff(Long[] ids) {
+        Executors.newFixedThreadPool(10);
+        for(Long id: ids){
+            staffdao.deleteStaff(id);
+            staffdao.deleteAffair(id);
+        }
     }
 }

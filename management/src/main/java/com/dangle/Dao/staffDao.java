@@ -25,4 +25,8 @@ public interface staffDao {
     void saveStaff(Staff staff);
 
     void addAffair(Affair affair);
+
+    void deleteStaff(Long id);
+
+    void deleteAffair(Long id);
 }

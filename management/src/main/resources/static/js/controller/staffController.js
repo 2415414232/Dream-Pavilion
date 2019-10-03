@@ -2,6 +2,7 @@ app.controller('staffController',function ($scope,$http) {
     $scope.condition={};
     $scope.entity={};
     $scope.affair={};
+    $scope.check=[];
     $scope.loadDataFirst = 1;
     //分页控件配置
     $scope.paginationConf = {
@@ -92,6 +93,27 @@ app.controller('staffController',function ($scope,$http) {
                     alert(response.map.msg);
                 }
             )
+        }
+
+        //复选框
+        $scope.selected=function ($event,id) {
+            if($event.target.checked){
+                $scope.check.push(id);
+            }else{
+                var idx=$scope.check.indexOf(id);
+                $scope.check.splice(idx,1);
+            }
+        }
+
+        $scope.deleteStaff=function () {
+            $http.post('../staff/deleteStaff',$scope.check).success(
+                function (response) {
+                    $scope.reloadList();
+                    alert(response.map.msg);
+                    $scope.check=[];
+                }
+            )
+
         }
 
 })

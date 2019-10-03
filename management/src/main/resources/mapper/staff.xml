@@ -124,6 +124,16 @@
 
 
     </insert>
+    <delete id="deleteStaff">
+                    DELETE
+            FROM `management`.`seller`
+            WHERE `id` = #{id};
+    </delete>
+    <delete id="deleteAffair">
+                    DELETE
+            FROM `management`.`affair`
+            WHERE `sellerid` = #{id};
+    </delete>
 
 
 </mapper>

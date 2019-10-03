@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dangle.Dao.consumerDao">
+    <select id="findAll" parameterType="com.dangle.pojo.Consumer" resultType="com.dangle.pojo.Consumer">
+                    SELECT
+                  c.`id`,
+                  c.`conname`,
+                  c.`conphone`,
+                  c.`contime`,
+                  a.`servicename` as conservice,
+                  c.`conaccount`,
+                  c.`consex`,
+                  c.`constatus`
+                FROM `consumer` c LEFT JOIN `allservice` a ON c.`conservice`=a.`serviceid`
+                <where>
+                    <if test="conname!=null and">
+
+                    </if>
+                </where>
+
+    </select>
+
+
+</mapper>

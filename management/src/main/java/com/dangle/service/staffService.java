@@ -21,4 +21,6 @@ public interface staffService {
     void saveStaff(Staff staff);
 
     void addAffair(Affair affair);
+
+    void deleteStaff(Long[] ids);
 }
