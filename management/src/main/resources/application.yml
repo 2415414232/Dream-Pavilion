@@ -8,7 +8,8 @@ mybatis:
     cache-enabled: true #开启2级缓存
 #数据库配置信息
 spring:
-  application: management-dangle  #配置
+  application:
+    name: management-dangle  #配置名字
   datasource:
     username: root
     password: root
