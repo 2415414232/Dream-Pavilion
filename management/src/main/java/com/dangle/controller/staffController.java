@@ -88,5 +88,10 @@ public class staffController {
 
         }
     }
+    @RequestMapping("findSeller")
+    public List<Map> findSeller(){
+
+        return staffservice.findSeller();
+    }
 
 }

@@ -19,4 +19,6 @@ public interface consumerService {
     void editConsumer(Consumer consumer);
 
     void saveConsumer(Consumer consumer);
+
+    List<Map> findConsumer();
 }

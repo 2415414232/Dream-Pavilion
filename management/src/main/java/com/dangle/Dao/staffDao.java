@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author by 党桢乐 on 2019/9/27
@@ -29,4 +30,6 @@ public interface staffDao {
     void deleteStaff(Long id);
 
     void deleteAffair(Long id);
+
+    List<Map> findSeller();
 }

@@ -34,7 +34,7 @@
                             <div class="pull-left">
                                 <div class="form-group form-inline">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-default glyphicon glyphicon-plus" title="新建" data-toggle="modal" data-target="#addModal" ><i class="fa fa-file-o"></i> 新建</button>
+                                        <button type="button" class="btn btn-default glyphicon glyphicon-plus" title="新建" data-toggle="modal" data-target="#addModal" ng-click="saveconsumer={}" ><i class="fa fa-file-o"></i> 新建</button>
                                         <button type="button" class="btn btn-default glyphicon glyphicon-repeat" title="刷新" onclick="window.location.reload();"><i class="fa fa-refresh"></i> 刷新</button>
                                     </div>
                                 </div>
@@ -106,7 +106,7 @@
 			  <div class="modal-body">
 				  <table class="table table-bordered table-striped"  width="800px">
 					  <tr>
-						  {{saveconsumer}}
+
 						  <td>顾客姓名</td>
 						  <td><input  class="form-control" placeholder="顾客姓名" ng-model="saveconsumer.conname" >  </td>
 					  </tr>

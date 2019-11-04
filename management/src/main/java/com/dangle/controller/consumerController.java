@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -57,5 +58,10 @@ public class consumerController {
             e.printStackTrace();
             return Result.fail().addmessage("msg","添加失败");
         }
+    }
+    @RequestMapping("/findConsumer")
+    public  List<Map> findConsumer(){
+       List<Map> list=consumerservice.findConsumer();
+        return list;
     }
 }

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dangle.Dao.conorderDao">
+<select id="findAll" parameterType="java.util.Map" resultType="com.dangle.pojo.Conorder">
+    SELECT
+  c.`conname` as `conname`,
+  o.`ord_id`,
+  o.`ord_date`,
+  o.`ord_introduce`,
+  s.`name` as  `selname`
+FROM `management`.`conorder` o LEFT JOIN `management`.`consumer` c ON o.`con_id`=c.`id` LEFT JOIN `management`.`seller` s ON o.`sel_id`=s.`id` ORDER BY o.`ord_date` DESC
+            <where>
+                <choose>
+                    <when test="time=='all'">
+                        o.`ord_date`>'1999-01-01'
+                    </when>
+                    <otherwise>
+                          o.`ord_date`=#{time}
+                    </otherwise>
+
+                </choose>
+                <if test="_parameter.containsKey('conname')">
+                    <if test="conname !=null and conname.length()>0">
+                        and  c.`conname` like '%${conname}%'
+                    </if>
+                </if>
+
+                <if test="_parameter.containsKey('sellername')">
+                    <if test="sellername !=null and sellername.length()>0">
+                        and  s.`name` like  '%${sellername}%'
+                    </if>
+
+                </if>
+            </where>
+</select>
+        <insert id="saveOrder">
+                                        INSERT INTO `management`.`conorder`
+                        (
+                         `con_id`,
+                         `ord_date`,
+                         `sel_id`,
+                         `ord_introduce`)
+            VALUES (
+
+                    #{conname},
+                    #{ordDate},
+                    #{selname},
+                    #{ordIntroduce});
+        </insert>
+</mapper>

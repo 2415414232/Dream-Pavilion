@@ -84,5 +84,12 @@
                     #{constatus});
 
     </insert>
+    <select id="findConsumer" resultType="java.util.Map">
+                    SELECT
+              `id`,
+              `conname`
+            FROM `management`.`consumer`
+           where `constatus`='0'
+    </select>
 
 </mapper>

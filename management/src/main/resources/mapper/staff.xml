@@ -134,6 +134,14 @@
             FROM `management`.`affair`
             WHERE `sellerid` = #{id};
     </delete>
+    <select id="findSeller" resultType="java.util.Map">
+                        SELECT
+                  `id`,
+                  `name`
+                FROM `management`.`seller`
+                where  `status`='1'
+
+    </select>
 
 
 </mapper>

@@ -99,6 +99,7 @@ app.controller('staffController',function ($scope,$http) {
         $scope.selected=function ($event,id) {
             if($event.target.checked){
                 $scope.check.push(id);
+                alert("请注意如果你选择删除的话，该员工对应的预约信息也将会被删除！")
             }else{
                 var idx=$scope.check.indexOf(id);
                 $scope.check.splice(idx,1);
@@ -106,6 +107,7 @@ app.controller('staffController',function ($scope,$http) {
         }
 
         $scope.deleteStaff=function () {
+        if($scope.check.length>0){
             $http.post('../staff/deleteStaff',$scope.check).success(
                 function (response) {
                     $scope.reloadList();
@@ -113,6 +115,10 @@ app.controller('staffController',function ($scope,$http) {
                     $scope.check=[];
                 }
             )
+        }else{
+            alert("你至少选择一项！")
+        }
+
 
         }
 

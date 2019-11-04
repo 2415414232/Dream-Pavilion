@@ -5,6 +5,7 @@ import com.dangle.pojo.Affair;
 import com.dangle.pojo.Staff;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author by 党桢乐 on 2019/9/27
@@ -23,4 +24,6 @@ public interface staffService {
     void addAffair(Affair affair);
 
     void deleteStaff(Long[] ids);
+
+    List<Map> findSeller();
 }

@@ -56,4 +56,9 @@ public class consumerServiceImpl  implements consumerService {
         consumer.setConstatus("0");
         consumerdao.saveConsumer(consumer);
     }
+
+    @Override
+    public List<Map> findConsumer() {
+        return consumerdao.findConsumer();
+    }
 }

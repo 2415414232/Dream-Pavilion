@@ -23,4 +23,6 @@ public interface consumerDao {
     void editConsumer(Consumer consumer);
 
     void saveConsumer(Consumer consumer);
+
+    List<Map> findConsumer();
 }
