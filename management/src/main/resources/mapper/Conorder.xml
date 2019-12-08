@@ -9,14 +9,15 @@
   o.`ord_date`,
   o.`ord_introduce`,
   s.`name` as  `selname`
-FROM `management`.`conorder` o LEFT JOIN `management`.`consumer` c ON o.`con_id`=c.`id` LEFT JOIN `management`.`seller` s ON o.`sel_id`=s.`id` ORDER BY o.`ord_date` DESC
+FROM `management`.`conorder` o LEFT JOIN `management`.`consumer` c ON o.`con_id`=c.`id` LEFT JOIN `management`.`seller` s ON o.`sel_id`=s.`id`
+
             <where>
                 <choose>
                     <when test="time=='all'">
                         o.`ord_date`>'1999-01-01'
                     </when>
                     <otherwise>
-                          o.`ord_date`=#{time}
+                        o.`ord_date`=#{time}
                     </otherwise>
 
                 </choose>
@@ -32,8 +33,11 @@ FROM `management`.`conorder` o LEFT JOIN `management`.`consumer` c ON o.`con_id`
                     </if>
 
                 </if>
+
             </where>
+    ORDER BY o.`ord_date` DESC
 </select>
+
         <insert id="saveOrder">
                                         INSERT INTO `management`.`conorder`
                         (
@@ -48,4 +52,33 @@ FROM `management`.`conorder` o LEFT JOIN `management`.`consumer` c ON o.`con_id`
                     #{selname},
                     #{ordIntroduce});
         </insert>
+    <select id="editOne" resultType="com.dangle.pojo.Conorder">
+            SELECT
+                      `ord_id`,
+                      `con_id` as conname,
+                      `ord_date`,
+                      `sel_id` as selname,
+                      `ord_introduce`
+                    FROM `management`.`conorder`
+                    WHERE ord_id=#{id}
+    </select>
+    <update id="editOrder" >
+
+                        UPDATE `management`.`conorder`
+                SET
+                  `con_id` = #{conname},
+                  `ord_date` = #{ordDate},
+                  `sel_id` = #{selname},
+                  `ord_introduce` = #{ordIntroduce}
+                WHERE `ord_id` = #{ordId};
+    </update>
+    <delete id="deleteOrder" parameterType="java.lang.Long">
+                        DELETE
+                FROM `management`.`conorder`
+                WHERE `ord_id` IN
+                <foreach collection="delete" item="item" open="(" separator="," close=")" >
+                    #{item}
+                </foreach>
+    </delete>
+
 </mapper>

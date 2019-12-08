@@ -16,7 +16,8 @@ import java.util.*;
  * @author by 党桢乐 on 2019/11/4
  */
 @Service
-public class conorderServiceImpl implements conorderService {
+public class conorderServiceImpl implements conorderService
+{
     @Autowired
     private conorderDao conorderDao;
 
@@ -46,6 +47,22 @@ public class conorderServiceImpl implements conorderService {
     @Override
     public void saveOrder(Conorder conorder) {
         conorderDao.saveOrder(conorder);
+    }
+
+    @Override
+    public Conorder editOne(Long id) {
+        return conorderDao.editOne(id);
+    }
+
+    @Override
+    public void editOrder(Conorder conorder) {
+        conorderDao.editOrder(conorder);
+    }
+
+    @Override
+    public void deleteOrder(Long[] delete) {
+
+        conorderDao.deleteOrder(delete);
     }
 
 

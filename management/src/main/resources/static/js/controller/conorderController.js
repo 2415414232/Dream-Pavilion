@@ -2,6 +2,9 @@ app.controller('conorderController',function ($http,$scope) {
     $scope.condition = {};
     $scope.loadDataFirst = 1;
     $scope.addOrder={};
+    $scope.consumer={};
+    $scope.seller={};
+    $scope.check=[];
     //分页控件配置
     $scope.saveconsumer = {};
     $scope.paginationConf = {
@@ -53,9 +56,52 @@ app.controller('conorderController',function ($http,$scope) {
             function (response) {
                 $scope.reloadList();
                 alert(response.map.msg)
+                $scope.addOrder={};
             }
         )
     }
+    //编辑预约信息的查询数据
+    $scope.editOne=function (id) {
+        $http.get('../conorder/editOne/'+id).success(
+            function (response) {
+                $scope.addOrder=response;
+            }
+        )
+    }
+    //编辑后保存
+    $scope.editOrder=function () {
+        $http.post('../conorder/editOrder',$scope.addOrder).success(
+            function (response) {
+                alert(response.map.msg);
+                $scope.reloadList();
+                $scope.addOrder={};
+            }
+        )
+    }
+    //复选框
+    $scope.selected=function ($event,id) {
+        if($event.target.checked){
+            $scope.check.push(id);
+        }else{
+            var idx=$scope.check.indexOf(id);
+            $scope.check.splice(idx,1);
+        }
+    }
 
+    $scope.deleteOrder=function () {
+        if($scope.check.length>0){
+            $http.post('../conorder/deleteOrder',$scope.check).success(
+                function (response) {
+                    $scope.reloadList();
+                    alert(response.map.msg);
+                    $scope.check=[];
+                }
+            )
+        }else{
+            alert("你至少选择一项！")
+        }
+
+
+    }
 })
 

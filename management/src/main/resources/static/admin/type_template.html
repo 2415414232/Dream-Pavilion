@@ -24,7 +24,7 @@
 
 </head>
 
-<body class="hold-transition skin-red sidebar-mini" ng-app="management" ng-controller="conorderController" >
+<body class="hold-transition skin-red sidebar-mini" ng-app="management" ng-controller="conorderController" ng-init="findConsumer();findSeller()">
   <!-- .box-body -->
                 
                     <div class="box-header with-border">
@@ -40,8 +40,8 @@
                             <div class="pull-left">
                                 <div class="form-group form-inline">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-default" title="添加" data-toggle="modal" data-target="#editModal" ng-click="findConsumer();findSeller()";addOrder="{}" ><i class="fa fa-file-o"></i> 新建</button>
-                                        <button type="button" class="btn btn-default" title="删除"><i class="fa fa-trash-o"></i> 删除</button>
+                                        <button type="button" class="btn btn-default" title="添加" data-toggle="modal" data-target="#addModal"><i class="fa fa-file-o"></i> 新建</button>
+                                        <button type="button" class="btn btn-default" title="删除" ng-click="deleteOrder()"><i class="fa fa-trash-o" ></i> 删除</button>
                                        
                                         <button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i class="fa fa-refresh"></i> 刷新</button>
                                     </div>
@@ -67,6 +67,7 @@
 			                  <table id="dataList" class="table table-bordered table-striped table-hover dataTable">
 			                      <thead>
 			                          <tr>
+
 			                              <th class="" style="padding-right:0px">
 			                                  选择
 			                              </th> 
@@ -80,14 +81,14 @@
 			                      </thead>
 			                      <tbody>
 			                          <tr ng-repeat="list in entry.list">
-			                              <td><input  type="checkbox"></td>			                              
+			                              <td><input  type="checkbox" ng-click="selected($event,list.ordId)"></td>
 				                          <td>{{list.ordId}}</td>
 									      <td>{{list.conname}}</td>
 									      <td style="color: red">{{list.ordDate}}</td>
 									      <td>{{list.ordIntroduce}}</td>
 									      <td style="color: #25cf5c">{{list.selname}}</td>
 		                                  <td class="text-center">                                           
-		                                 	  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal" >修改</button>                                           
+		                                 	  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal" ng-click="editOne(list.ordId)">修改</button>
 		                                  </td>
 			                          </tr>
 
@@ -109,25 +110,25 @@
 					    
                                 
 <!-- 编辑窗口 -->
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog" >
 	<div class="modal-content">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3 id="myModalLabel">预约信息编辑</h3>
+			<h3 id="myModalLabel">预约信息添加</h3>
 		</div>
 		<div class="modal-body">							
 			
 			<table class="table table-bordered table-striped"  width="800px">
 				<tr>
-						{{addOrder}}
+
 					<td>顾客姓名</td>
 					<td>
 
 
 							<select ng-model="addOrder.conname">
 								<option value="">--请选择--</option>
-								<option ng-repeat="c in consumer" ng-value="c.id">{{c.conname}}</option>
+								<option ng-repeat="c in consumer" value="{{c.id}}">{{c.conname}}</option>
 							</select>
 
 					</td>
@@ -151,7 +152,7 @@
 					<td>
 						<select ng-model="addOrder.selname">
 							<option value="">--请选择--</option>
-							<option ng-repeat="c in seller" ng-value="c.id">{{c.name}}</option>
+							<option ng-repeat="c in seller" value="{{c.id}}">{{c.name}}</option>
 						</select>
 					</td>
 				</tr>
@@ -161,13 +162,68 @@
 			
 		</div>
 		<div class="modal-footer">						
-			<button class="btn btn-success" data-dismiss="modal" aria-hidden="true" ng-click="saveOrder()">保存</button>
+			<button class="btn btn-success" data-dismiss="modal" aria-hidden="true" ng-click="saveOrder()">添加</button>
 			<button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
 		</div>
 	  </div>
 	</div>
 </div>
-    
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" >
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 id="ModalLabel">预约信息修改</h3>
+		</div>
+		<div class="modal-body">
+
+			<table class="table table-bordered table-striped"  width="800px">
+				<tr>
+					<td>顾客姓名</td>
+					<td>
+
+
+							<select ng-model="addOrder.conname" id="conname" name="conname">
+								<option ng-repeat="c in consumer" value="{{c.id}}" ng-selected="addOrder.conname == c.id" >{{c.conname}}</option>
+							</select>
+
+					</td>
+				</tr>
+				<tr>
+					<td>预约时间</td>
+					<td >
+						<input  type="date" class="form-control" placeholder="预约时间" ng-model="addOrder.ordDate" >
+					</td>
+				</tr>
+				<tr>
+					<td>预约备注</td>
+					<td><textarea type="" class="form-control" placeholder="预约备注" ng-model="addOrder.ordIntroduce">
+					</textarea>
+					</td>
+				</tr>
+
+				<tr>
+					<td>服务员工</td>
+
+					<td>
+						<select ng-model="addOrder.selname"  id="esitselname" name="editselname">
+							<option ng-repeat="c in seller" value="{{c.id}}"  ng-selected="addOrder.selname == c.id" >{{c.name}}</option>
+						</select>
+					</td>
+				</tr>
+
+
+			 </table>
+
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-success" data-dismiss="modal" aria-hidden="true" ng-click="editOrder()">保存</button>
+			<button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
+		</div>
+	  </div>
+	</div>
+</div>
+
 </body>
 
 </html>

@@ -16,4 +16,10 @@ public interface conorderDao {
     List<Conorder> findAll( Map<String, String> conditionmap);
 
     void saveOrder(Conorder conorder);
+
+    Conorder editOne(Long id);
+
+    void editOrder(Conorder conorder);
+
+    void deleteOrder(Long[] delete);
 }

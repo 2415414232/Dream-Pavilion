@@ -10,6 +10,7 @@
     <modules>
         <module>dearm-api</module>
         <module>management</module>
+        <module>Store</module>
     </modules>
     <packaging>pom</packaging>
     <properties>

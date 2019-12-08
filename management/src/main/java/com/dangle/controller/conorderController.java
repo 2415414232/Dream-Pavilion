@@ -29,4 +29,22 @@ public class conorderController {
         return Result.success().addmessage("msg","添加成功");
 
     }
+    @RequestMapping("/editOne/{id}")
+    public  Conorder editOne(@PathVariable Long id){
+        return conorderService.editOne(id);
+    }
+    /**
+     * 修改保存
+     */
+    @RequestMapping("/editOrder")
+    public  Result editOrder(@RequestBody Conorder conorder){
+        conorderService.editOrder(conorder);
+        return Result.success().addmessage("msg","修改成功！");
+    }
+    @RequestMapping("/deleteOrder")
+    public  Result deleteOrder(@RequestBody Long[] delete){
+        conorderService.deleteOrder(delete);
+
+        return  Result.success().addmessage("msg","删除成功");
+    }
 }

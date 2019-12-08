@@ -13,7 +13,7 @@ spring:
   datasource:
     username: root
     password: root
-    url: jdbc:mysql://192.168.0.108:12345/management?characterEncoding=UTF-8
+    url: jdbc:mysql://192.168.0.120:12345/management?characterEncoding=UTF-8
     driver-class-name: com.mysql.jdbc.Driver
 
 #连接配置

@@ -17,4 +17,10 @@ public interface conorderService {
     pageEntity<Conorder> findAll(Integer page, Integer size, Map<String, String> conditionmap);
 
     void saveOrder(Conorder conorder);
+
+    Conorder editOne(Long id);
+
+    void editOrder(Conorder conorder);
+
+    void deleteOrder(Long[] delete);
 }
