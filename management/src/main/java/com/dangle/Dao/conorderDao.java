@@ -2,6 +2,7 @@ package com.dangle.Dao;
 
 import com.dangle.pojo.Conorder;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -21,5 +22,5 @@ public interface conorderDao {
 
     void editOrder(Conorder conorder);
 
-    void deleteOrder(Long[] delete);
+    void deleteOrder(@Param("delete") Long[] delete);
 }

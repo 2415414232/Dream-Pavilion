@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- 页面meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>用户管理</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../plugins/adminLTE/css/AdminLTE.css">
+    <link rel="stylesheet" href="../plugins/adminLTE/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+	<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../plugins/angularjs/angular.min.js">  </script>
+	<!-- 分页组件开始 -->
+	<script src="../plugins/angularjs/pagination.js"></script>
+	<link rel="stylesheet" href="../plugins/angularjs/pagination.css">
+	<!-- 分页组件结束 -->
+	<script type="text/javascript" src="../js/base_pagination.js"></script>
+	<script type="text/javascript" src="../js/controller/userController.js">  </script>
+    
+</head>
+
+<body class="hold-transition skin-red sidebar-mini" ng-app="management" ng-controller="userController"  >
+  <!-- .box-body -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">用户管理</h3>
+                    </div>
+
+                    <div class="box-body">
+
+                        <!-- 数据表格 -->
+                        <div class="table-box">
+
+                            <!--工具栏-->
+							<div class="pull-left">
+								<div class="form-group form-inline">
+									<div class="btn-group">
+										<button type="button" class="btn btn-default glyphicon glyphicon-plus" title="新建" data-toggle="modal" data-target="#addModal" ng-click="user={}" ><i class="fa fa-file-o"></i> 添加用户</button>
+										<button type="button" class="btn btn-default glyphicon glyphicon-repeat" title="刷新" onclick="window.location.reload();"><i class="fa fa-refresh"></i> 刷新</button>
+									</div>
+								</div>
+							</div>
+                            
+
+                            <!--工具栏/-->
+
+			                  <!--数据列表-->
+			                  <table id="dataList" class="table table-bordered table-striped table-hover dataTable">
+			                      <thead>
+			                          <tr>
+
+										  <th class="sorting_asc">用户ID</th>
+									      <th class="sorting">账号</th>
+									      <th class="sorting">密码</th>
+									      <th class="sorting">权限</th>
+					                      <th class="text-center">操作</th>
+			                          </tr>
+			                      </thead>
+			                      <tbody>
+			                          <tr>
+
+				                          <td>adsad</td>
+				                          <td>adsad</td>
+
+									      <td>asdasdsad</td>
+									      <td>asdasdsad</td>
+
+										  <td class="text-center">
+											  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#affair"  >删除</button>
+
+											  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal" >更改权限</button>
+										  </td>
+			                          </tr>
+
+			                      </tbody>
+			                  </table>
+			                  <!--数据列表/-->                        
+							  
+
+                        </div>
+                        <!-- 数据表格 /-->
+
+                     </div>
+                    <!-- /.box-body -->
+				</div>
+	          
+					    
+                                
+<!-- 商家详情 -->
+  <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" >
+		  <div class="modal-content">
+			  <div class="modal-header">
+				  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				  <h3 id="myModalLabd">添加后台用户</h3>
+			  </div>
+			  <div class="modal-body">
+				  <table  class="table table-bordered table-striped"  width="800px" >
+						  <tr>
+							  <td>账号</td>
+							  <td><input ng-model="user.uname" class="form-control" placeholder="账号" >
+							  </td>
+						  </tr>
+						  <tr>
+							  <td>密码</td>
+							  <td>
+								  <input ng-model="user.upassword" type="password" class="form-control" placeholder="密码"  />
+							  </td>
+						  </tr>
+						  <tr>
+							  <td>确定密码</td>
+							  <div class="has-error">
+							  <td>
+								  <input ng-model="user.uupassword" type="password" id="checkboxError" class="form-control" placeholder="确定密码" ng-blur="blur()" />
+								  <p style="color: red" ng-show="boolean">两次密码不一致!</p>
+							  </td>
+								  </div>
+						  </tr>
+						  <tr>
+							  <td>权限</td>
+							  <td>
+								  <select ng-model="user.rid">
+									  <option value="">--请选择--</option>
+									  <option value="1">管理员</option>
+									  <option value="2">普通用户</option>
+								  </select>
+							  </td>
+						  </tr>
+				  </table>
+
+			  </div>
+			  <div class="modal-footer">
+				  <button   class="btn btn-success" data-dismiss="modal" aria-hidden="true" ng-click="addUser()" >添加</button>
+				  <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
+			  </div>
+			{{user}}
+		  </div>
+	  </div>
+  </div>
+
+
+
+</body>
+</html>

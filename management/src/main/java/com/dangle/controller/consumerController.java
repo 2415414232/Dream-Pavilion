@@ -16,6 +16,7 @@ import java.util.Map;
 
 /**
  * @author by 党桢乐 on 2019/9/30
+ * 顾客模块
  */
 @RestController
 @RequestMapping("/consumer")

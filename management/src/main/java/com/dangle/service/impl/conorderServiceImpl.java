@@ -46,6 +46,9 @@ public class conorderServiceImpl implements conorderService
 
     @Override
     public void saveOrder(Conorder conorder) {
+          if(conorder.getOrdIntroduce()==null){
+            conorder.setOrdIntroduce("无备注！");
+        }
         conorderDao.saveOrder(conorder);
     }
 
