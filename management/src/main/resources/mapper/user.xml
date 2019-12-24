@@ -8,11 +8,29 @@
             (
              `uname`,
              `upassword`,
-             `rid`)
+             `rid`,`username`)
        VALUES (
                 #{uname},
                 #{upassword},
-                #{rid});
+                #{rid},
+                #{username});
     </insert>
+    <select id="login" resultType="com.dangle.pojo.User" parameterType="java.lang.String">
+
+        SELECT
+                  `uid`,
+                  `uname`,
+                  `upassword`,
+                  `username`,
+                  `rid`
+                FROM `management`.`user`  where  `uname`=#{uname}
+
+    </select>
+
+    <select id="getRole" resultType="java.lang.String" >
+            SELECT
+              `roles`
+            FROM `management`.`role` WHERE `rid`=#{ridd}
+    </select>
 
 </mapper>

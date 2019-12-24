@@ -19,4 +19,7 @@ public class User implements Serializable {
     private String uname;
     private String upassword;
     private  Integer rid;
+    private String  username;
+
+    
 }

@@ -7,4 +7,7 @@ import com.dangle.pojo.User;
  */
 public interface userService {
     void addUser(User user);
+    public User login(User user);
+
+    String getRole(Integer rid);
 }

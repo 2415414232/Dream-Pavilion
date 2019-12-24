@@ -9,4 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface userDao {
     void addUser(User user);
+    User login(String uname);
+
+    public String getRole(Integer ridd);
 }

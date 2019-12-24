@@ -34,8 +34,14 @@ spring:
     maxPoolPreparedStatementPerConnectionSize: 20
     userGlobalDataSourceStat: true
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+  mvc:
+    static-path-pattern: /**
 
 
 logging:
   level:
      com.dangle.Dao.conorderDao : debug   #打印sql语句
+jwt:
+  config:
+    key: dang
+    ttl: 360000
