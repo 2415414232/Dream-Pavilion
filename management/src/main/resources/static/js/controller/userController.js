@@ -3,10 +3,11 @@ app.controller('userController',function ($scope,$http) {   //后台用户
     $scope.boolean=false;
     $scope.message="";
     $scope.tocken="";
+    $scope.userss={};
 
 
 $scope.addUser=function () {
-
+    console.log($scope.user.length)
         $http.post('../user/addUser',$scope.user).success(
             function (response) {
                 alert(response.map.msg);
@@ -24,7 +25,11 @@ $scope.blur=function () {
     }
 }
 $scope.findUser=function () {
-    $http.get("")
+    $http.get("../user/findUser").success(
+        function (response) {
+            $scope.userss=response.map.list;
+        }
+    )
 }
 $scope.login=function () {
     $http.post('../user/login',$scope.user).success(
@@ -32,7 +37,7 @@ $scope.login=function () {
               if(response.res){
                   $scope.boolean=false;
                   $scope.tocken=response.map.tocken;
-                  $http.post('../user/index',response.map.name,{ headers : {'Authorization': $scope.tocken}}).success(
+                  $http.post('../user/index',{'name':response.map.name},{ headers : {'Authorization': $scope.tocken}}).success(
                       function (res) {
                           if(res.res){
 
@@ -70,5 +75,15 @@ $scope.findName=function () {
             }
         )
     }
+//删除用户
+    $scope.deleteUser=function (uid,username) {
 
+        if(confirm("你确定要删除"+username+"用户吗？")){
+            $http.get('../user/deleteUser/'+uid).success(
+                function (response) {
+                    window.location.reload();
+                }
+            )
+        }
+    }
 })

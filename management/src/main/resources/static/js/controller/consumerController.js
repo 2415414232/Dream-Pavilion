@@ -3,6 +3,8 @@ app.controller('consumerController',function ($scope,$http) {
     $scope.loadDataFirst = 1;
     //分页控件配置
     $scope.saveconsumer={};
+    $scope.goods={};
+    $scope.num={}
     $scope.paginationConf = {
         currentPage: 1,
         totalItems: 10,
@@ -75,6 +77,52 @@ app.controller('consumerController',function ($scope,$http) {
             function (response) {
                 $scope.reloadList();
                 alert(response.map.msg);
+            }
+        )
+    }
+    //保存服务
+    $scope.saveGoods=function () {
+            $http.post('../goods/saveGoods',$scope.goods).success(
+                function (response) {
+                    alert(response.map.msg);
+                    window.location.reload();
+                }
+            )
+    }
+    //删除服务
+    $scope.deleteGoods=function (id) {
+        if(confirm("确定要删除吗？")) {
+
+
+            $http.get('../goods/deleteGoods/' + id).success(
+                function (response) {
+                    window.location.reload();
+                }
+            )
+        }
+    }
+    $scope.findGoodsById=function (id) {
+        $http.get('../goods/findGoodsById/'+id).success(
+            function (response) {
+                $scope.goods=response.map.msg;
+
+            }
+        )
+    }
+    $scope.updateGoods=function (id) {
+        $http.post('../goods/updateGoods/',$scope.goods).success(
+            function (response) {
+                alert(response.map.msg);
+                window.location.reload();
+
+            }
+        )
+    }
+    $scope.findordernum=function () {
+        $http.get('../goods/findordernum').success(
+            function (response) {
+                //console.log(response)
+                $scope.num=response.map.msg;
             }
         )
     }

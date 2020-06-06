@@ -1,6 +1,7 @@
 package com.dangle.Dao;
 
 import com.dangle.pojo.Consumer;
+import com.dangle.pojo.Goods;
 import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
@@ -16,7 +17,7 @@ import java.util.Map;
 public interface consumerDao {
     List<Consumer> findAll(Consumer consumer);
 
-    List<Map> findService();
+    List<Goods> findService();
 
     Consumer findOne(Long id);
 

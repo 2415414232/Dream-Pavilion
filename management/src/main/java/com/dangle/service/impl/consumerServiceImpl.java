@@ -3,13 +3,13 @@ package com.dangle.service.impl;
 import com.dangle.Dao.consumerDao;
 import com.dangle.entity.pageEntity;
 import com.dangle.pojo.Consumer;
+import com.dangle.pojo.Goods;
 import com.dangle.service.consumerService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLOutput;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -33,7 +33,7 @@ public class consumerServiceImpl  implements consumerService {
     }
 
     @Override
-    public List<Map> findService() {
+    public List<Goods> findService() {
         return consumerdao.findService();
     }
 

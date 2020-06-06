@@ -24,7 +24,7 @@ public class Consumer implements Serializable {
     private String conphone;
     private String consex;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JSONField(format = "yyyy/MM/dd")
+    @JSONField(format = "yyyy-MM-dd")
     private Date  contime;
     private String conservice;
     private String conaccount;

@@ -32,5 +32,20 @@
               `roles`
             FROM `management`.`role` WHERE `rid`=#{ridd}
     </select>
+    <select id="findUser" resultType="com.dangle.pojo.User">
+                        SELECT
+                  `uid`,
+                  `uname`,
+
+                  `rid`,
+                  `username`
+                FROM `management`.`user`
+
+    </select>
+    <select id="deleteUser" parameterType="java.lang.Integer">
+                    DELETE
+            FROM `management`.`user`
+            WHERE `uid` = #{uid};
+    </select>
 
 </mapper>

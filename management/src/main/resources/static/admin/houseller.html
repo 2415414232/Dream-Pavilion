@@ -55,25 +55,24 @@
 			                          <tr>
 
 										  <th class="sorting_asc">用户ID</th>
+									      <th class="sorting">用户名</th>
 									      <th class="sorting">账号</th>
-									      <th class="sorting">密码</th>
 									      <th class="sorting">权限</th>
 					                      <th class="text-center">操作</th>
 			                          </tr>
 			                      </thead>
 			                      <tbody>
-			                          <tr>
+			                          <tr   ng-repeat="users in userss">
 
-				                          <td>adsad</td>
-				                          <td>adsad</td>
+				                          <td>{{users.uid}}</td>
+				                          <td>{{users.username}}</td>
 
-									      <td>asdasdsad</td>
-									      <td>asdasdsad</td>
+									      <td>{{users.uname}}</td>
+									      <td>{{users.rid==1?'超级管理员':'普通用户'}}</td>
 
 										  <td class="text-center">
-											  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#affair"  >删除</button>
+											  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#delete" ng-click="deleteUser(users.uid,users.username)" >删除</button>
 
-											  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal" >更改权限</button>
 										  </td>
 			                          </tr>
 
@@ -132,7 +131,7 @@
 							  <td>
 								  <select ng-model="user.rid">
 									  <option value="">--请选择--</option>
-									  <option value="1">管理员</option>
+									  <option value="1">超级管理员</option>
 									  <option value="2">普通用户</option>
 								  </select>
 							  </td>

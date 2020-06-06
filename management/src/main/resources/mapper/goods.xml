@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dangle.Dao.goodsDao">
+    <insert id="saveGoods" parameterType="com.dangle.pojo.Goods">
+                INSERT INTO `management`.`allservice`
+                    (
+                     `servicename`,
+                     `money`,
+                     `num`)
+        VALUES (
+                #{servicename},
+                #{money},
+                #{num});
+    </insert>
+    <delete id="deleteGoods" parameterType="java.lang.Integer">
+                    DELETE
+            FROM `management`.`allservice`
+            WHERE `serviceid` = #{id};
+    </delete>
+    <select id="findGoodsById" parameterType="java.lang.Integer" resultType="com.dangle.pojo.Goods">
+                            SELECT
+                      `serviceid`,
+                      `servicename`,
+                      `money`,
+                      `num`
+                    FROM `management`.`allservice` where `serviceid`=#{id};
+
+    </select>
+    <update id="updateGoods" parameterType="com.dangle.pojo.Goods">
+                UPDATE `management`.`allservice`
+                SET
+                  `servicename` = #{servicename},
+                  `money` =  #{money},
+                  `num` = #{num}
+                WHERE `serviceid` = #{serviceid}
+    </update>
+    <select id="findordernum" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT
+          COUNT(*)
+        FROM `management`.`conorder` WHERE `ord_date`=#{time};
+    </select>
+    <select id="findconsumernum" resultType="java.lang.Integer">
+            SELECT
+              COUNT(*)
+            FROM `management`.`consumer` WHERE constatus='0'
+    </select>
+</mapper>

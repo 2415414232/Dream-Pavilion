@@ -3,6 +3,7 @@ server:
 mybatis:
   mapper-locations: classpath:mapper/*.xml  #配置mapper包扫描
   type-aliases-package: com.dangle.pojo   #实体包
+
   configuration:
     map-underscore-to-camel-case: true  #开启驼峰命名
     cache-enabled: true #开启2级缓存
@@ -36,11 +37,9 @@ spring:
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
   mvc:
     static-path-pattern: /**
-
-
 logging:
   level:
-     com.dangle.Dao.conorderDao : debug   #打印sql语句
+     com.dangle.Dao : debug   #打印sql语句
 jwt:
   config:
     key: dang

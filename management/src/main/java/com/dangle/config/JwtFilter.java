@@ -18,7 +18,8 @@ import java.util.Calendar;
  */
 @Component
 public class JwtFilter extends HandlerInterceptorAdapter {
-
+    @Autowired
+    private  JwtUtil jwtUtil;
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if(request.getSession().getAttribute("name")!=null) {
@@ -28,7 +29,7 @@ public class JwtFilter extends HandlerInterceptorAdapter {
 
             if (authHeader != null) {
                 try {
-                    Claims claims = Jwts.parser().setSigningKey("dang").parseClaimsJws(authHeader).getBody();
+                    Claims claims = jwtUtil.parseJWT(authHeader);
                     if (claims != null) {
                         if ("admin".equals(claims.get("roles"))) {
                             request.getSession().setAttribute("admin", claims);

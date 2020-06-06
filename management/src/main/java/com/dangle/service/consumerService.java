@@ -2,6 +2,7 @@ package com.dangle.service;
 
 import com.dangle.entity.pageEntity;
 import com.dangle.pojo.Consumer;
+import com.dangle.pojo.Goods;
 
 import java.util.List;
 import java.util.Map;
@@ -12,7 +13,7 @@ import java.util.Map;
 public interface consumerService {
     pageEntity<Consumer> findAll(Integer page, Integer size,Consumer consumer);
 
-    List<Map> findService();
+    List<Goods> findService();
 
     Consumer findOne(Long id);
 

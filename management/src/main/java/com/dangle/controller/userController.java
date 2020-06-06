@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author by 党桢乐 on 2019/12/20
@@ -49,8 +51,9 @@ public class userController {
         }
     }
     @RequestMapping("/index")
-       public Result index(HttpServletRequest request, HttpServletResponse response,@RequestBody String name){
-           request.getSession().setAttribute("name",name);
+       public Result index(HttpServletRequest request, HttpServletResponse response,@RequestBody Map name){
+
+           request.getSession().setAttribute("name",name.get("name"));
            return Result.success();
     }
 
@@ -76,6 +79,18 @@ public class userController {
     @RequestMapping("/logout")
     public void logout(HttpServletRequest request){
         request.getSession().removeAttribute("name");
+    }
+    /**
+     * 查找后台用户
+     */
+    @RequestMapping("/findUser")
+    public  Result findUser(){
+
+        return  Result.success().addmessage("list",userService.findUser());
+    }
+    @RequestMapping("/deleteUser/{uid}")
+    public  void deleteUser(@PathVariable Integer uid){
+        userService.deleteUser(uid);
     }
 
 }

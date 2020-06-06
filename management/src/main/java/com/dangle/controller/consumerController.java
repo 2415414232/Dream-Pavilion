@@ -3,6 +3,7 @@ package com.dangle.controller;
 import com.dangle.entity.Result;
 import com.dangle.entity.pageEntity;
 import com.dangle.pojo.Consumer;
+import com.dangle.pojo.Goods;
 import com.dangle.service.consumerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,7 +29,7 @@ public class consumerController {
         return consumerservice.findAll(page,size,consumer);
     }
     @RequestMapping("/findService")
-    public List<Map> findService(){
+    public List<Goods> findService(){
         return consumerservice.findService();
     }
 

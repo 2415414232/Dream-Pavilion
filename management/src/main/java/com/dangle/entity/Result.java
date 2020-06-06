@@ -16,7 +16,7 @@ import java.util.Map;
 @NoArgsConstructor
 public class Result implements Serializable {
     private boolean res;
-    private  Map<String,String> map=new HashMap<>();
+    private  Map<String,Object> map=new HashMap<>();
     public static  Result success(){
         Result result=new Result();
         result.setRes(true);
@@ -27,7 +27,7 @@ public class Result implements Serializable {
         result.setRes(false);
         return result;
     }
-    public  Result addmessage(String key,String value){
+    public  Result addmessage(String key,Object value){
         this.getMap().put(key,value);
                 return this;
     }

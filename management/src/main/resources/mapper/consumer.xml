@@ -29,10 +29,12 @@
     </select>
 
     <select id="findService" resultType="java.util.Map">
-                    SELECT
-              `serviceid`,
-              `servicename`
-            FROM `management`.`allservice`
+                  SELECT
+                  `serviceid`,
+                  `servicename`,
+                  `money`,
+                  `num`
+                FROM `management`.`allservice`
     </select>
     <select id="findOne" resultType="com.dangle.pojo.Consumer">
                     SELECT
